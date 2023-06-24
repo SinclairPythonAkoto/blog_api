@@ -1,7 +1,8 @@
 import requests
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, request
 from flask_restful import Api, Resource, reqparse, abort
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import cross_origin
 from datetime import datetime
 
 app = Flask(__name__)
@@ -23,6 +24,15 @@ class Users(db.Model):
 # create all db models
 with app.app_context():
     db.create_all()
+
+# allows cross domain with Angular
+@app.after_request
+
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  return response
 
 # put arguments (to create blog)
 create_user_put_args = reqparse.RequestParser()
@@ -47,21 +57,23 @@ class HelloWorld(Resource):
 
 class CreateUser(Resource):
     def put(self):
-        args = create_user_put_args.parse_args()
+        data = request.get_json()
+        print(data)
         new_user = Users(
-            username=args.get("user"),
-            password=args.get("password"),
-            email=args.get("email")
+            username=data.get("user").get("user"),
+            password=data.get("user").get("password"),
+            email=data.get("user").get("email")
         )
         db.session.add(new_user)
         db.session.commit()
         # create json response 
-        response = jsonify({
+        response = {
             "id": new_user.id,
             "username": new_user.username,
             "password": new_user.password
-        })
-        response.headers["Custom-Header"] = f"A new user has been created - {args.get('user')}:{args.get('email')}"
+        }
+        response = jsonify(response)
+        response.headers["Custom-Header"] = f"A new user has been created - {data.get('user')}:{data.get('email')}"
         return make_response(response, 201)
 
 class GetUserByEmail(Resource):

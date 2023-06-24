@@ -15,7 +15,7 @@ export class UserService {
 
   createUser(user:User){
     //send web request to content
-    return this.webRequestService.put(`/new/user`, {user})
+    return this.webRequestService.put(`new/user`, {user})
 
 
   }
