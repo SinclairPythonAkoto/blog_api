@@ -15,6 +15,6 @@ export class HomeComponent {
   sendCreate( email: HTMLInputElement, pwd: HTMLInputElement, name:HTMLInputElement){
     console.log({email: email.value.toString(), password: pwd.value.toString(), user: name.value.toString()} as User)
     // console.log({email.value , pwd, name} as User)
-    this.contentService.createUser({email: email.value.toString(), password: pwd.value.toString(), user: name.toString()} as User).subscribe((response)=> console.log(response))
+    this.contentService.createUser({email: email.value.toString(), password: pwd.value.toString(), user: name.value.toString()}).subscribe((response)=> console.log(response))
   }
 }
