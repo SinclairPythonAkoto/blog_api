@@ -1,1 +1,14 @@
+.env
 /virtualenv
+/blog_api.egg-info
+/blog_api/__pycache__
+/blog_api/api/__pycache__
+/blog_api/api/public/__pycache__
+/blog_api/api/private/__pycache__
+/blog_api/models/__pycache__
+/blog_api/utils/__pycache__
+/blog_api/utils/api_arguments/__pycache__
+/blog_api/utils/tools/__pycache__
+/blog_api/utils/validators/__pycache__
+/.pytest_cache
+
