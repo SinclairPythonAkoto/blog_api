@@ -11,4 +11,4 @@
 /blog_api/utils/tools/__pycache__
 /blog_api/utils/validators/__pycache__
 /.pytest_cache
-
+blogapi.sqlite3

@@ -12,7 +12,7 @@ class CreateNewAccount(Resource):
         username: data = data["user"]["user"]
         email: data = data["user"]["email"]
         user_password: data = data["user"]["password"]
-        session = db_session()
+        session: db_session = db_session()
 
         find_user: validate_user = validate_user.get_username(session, username)
         find_email: validate_user = validate_user.get_email(session, email)
