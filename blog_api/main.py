@@ -4,6 +4,7 @@ import requests
 from flask import Flask, jsonify, make_response, request, session
 from blog_api.extension import init_db, SessionLocal
 from blog_api.api.public.helloworld import HelloWorld
+from blog_api.api.public.create_account import CreateNewAccount
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -28,6 +29,7 @@ def after_request(response):
 # add api resource here
 
 api.add_resource(HelloWorld, "/helloworld")
+api.add_resource(CreateNewAccount, "/new/user")
 
 if __name__ == "__main__":
     app.run(debug=True, port=os.environ["BLOG_PORT"])

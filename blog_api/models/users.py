@@ -5,7 +5,7 @@ from blog_api.extension import Base
 class Users(Base):
     __tablename__ = "users"
     id = Column("id", Integer, primary_key=True)
-    usename = Column("username", String(35), nullable=False)
+    username = Column("username", String(35), nullable=False)
     password = Column("password", String(50), nullable=False)
     email = Column("email", String(50), nullable=False)
 #     created = Column("created", DateTime, nullable=False)
