@@ -2,8 +2,8 @@ from typing import Dict, List
 from flask import jsonify, make_response, request
 from flask_restful import Resource
 from blog_api.extension import db_session
+from blog_api.utils.error_messages.users import abort
 from blog_api.utils.tools import validate_user
-from blog_api.utils.api_arguments import create_account_put
 from blog_api.utils.tools.create_new_account import create_account
 
 class CreateNewAccount(Resource):
@@ -17,9 +17,9 @@ class CreateNewAccount(Resource):
         find_user: validate_user = validate_user.get_username(session, username)
         find_email: validate_user = validate_user.get_email(session, email)
         # validate if username already exists, if so abort
-        validate_user.abort_if_username_already_exists_409(session, username)
+        abort.abort_if_username_already_exists_409(session, username)
         # validate if email already exists, if so abort
-        validate_user.abort_if_email_already_exists_409(session, email)
+        abort.abort_if_email_already_exists_409(session, email)
         # create a new user account
         if not find_user and not find_email:
             create_new_account = create_account(
