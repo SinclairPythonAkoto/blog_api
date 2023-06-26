@@ -12,9 +12,21 @@ export class HomeComponent {
 
   constructor(private contentService:UserService,  @Inject(DOCUMENT) public document: Document){}
 
+  loginDetails: any;
+  loggedIn = false;
+
   sendCreate( email: HTMLInputElement, pwd: HTMLInputElement, name:HTMLInputElement){
     console.log({email: email.value.toString(), password: pwd.value.toString(), user: name.value.toString()} as User)
     // console.log({email.value , pwd, name} as User)
-    this.contentService.createUser({email: email.value.toString(), password: pwd.value.toString(), user: name.value.toString()}).subscribe((response)=> console.log(response))
+    this.contentService.createUser({email: email.value.toString(), password: pwd.value.toString(), user: name.value.toString()}).subscribe((response)=>{
+      this.loginDetails = response
+      if(this.loginDetails){
+        this.loggedIn = true
+      }
+      console.log(this.loginDetails)
+
+    }
+    )
   }
+
 }
