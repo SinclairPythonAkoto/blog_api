@@ -1,7 +1,9 @@
-<p>home works!</p>
-<div>
+<div *ngIf="!loggedIn">
     <input type="Text" #email  name="email" value="Email">
     <input type="Text" #pwd name="pwd" value="pwd">
     <input type="Text" #name name="name" value="name">
     <button (click)="sendCreate(email, pwd, name)">send</button>
+</div>
+<div *ngIf="loggedIn" style="padding: 10px">
+    <h1>welcome {{loginDetails["username"]}}</h1>
 </div>

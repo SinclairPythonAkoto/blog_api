@@ -5,6 +5,7 @@ from blog_api.extension import db_session
 from blog_api.utils.tools import validate_user
 from blog_api.utils.error_messages.users import abort
 
+
 class GetAccountByEmail(Resource):
     def get(self, user_email):
         session: db_session = db_session

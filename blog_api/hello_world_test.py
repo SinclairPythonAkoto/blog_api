@@ -4,11 +4,13 @@ import requests
 from blog_api import app
 from flask import request
 
-# create an instance of app & db as a client 
+
+# create an instance of app & db as a client
 @pytest.fixture
 def client():
     client = app.test_client()
     yield client
+
 
 def test_hello_world(client):
     BASE = "http://127.0.0.1:5000"

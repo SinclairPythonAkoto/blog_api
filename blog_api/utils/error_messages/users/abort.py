@@ -11,6 +11,7 @@ def abort_if_no_username_404(session: db_session, user: str):
     if result is False:
         abort(404, message="Username not found.")
 
+
 def abort_if_no_email_404(session: db_session, user_email: str):
     """Raises HTTPExecption if no email found in Users db."""
     result: bool = session.query(
@@ -26,12 +27,19 @@ def abort_if_username_already_exists_409(session: db_session, username: str):
         session.query(Users).filter_by(username=username).exists()
     ).scalar()
     if result is True:
-        abort(409, message="The username already exists, please choose a different username.")
-    
+        abort(
+            409,
+            message="The username already exists, please choose a different username.",
+        )
+
+
 def abort_if_email_already_exists_409(session: db_session, email: str):
     """Raises HTTPExecption if username already found in Users db."""
     result: bool = session.query(
         session.query(Users).filter_by(email=email).exists()
     ).scalar()
     if result is True:
-        abort(409, message="This email is already linked to another account, please choose a different email.")
+        abort(
+            409,
+            message="This email is already linked to another account, please choose a different email.",
+        )

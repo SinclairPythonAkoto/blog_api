@@ -5,10 +5,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def create_app() -> Flask:
     app: Flask = Flask(__name__)
     # add app configurations here
     return app
+
 
 app: Flask = create_app()
 
