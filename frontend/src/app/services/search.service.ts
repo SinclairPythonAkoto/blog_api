@@ -12,6 +12,6 @@ export class SearchService {
   }
 
   searchByEmail(query:string){
-    return this.webRequestService.get(`new/${query}`, null)
+    return this.webRequestService.get(`find/${query}`, null)
   }
 }
