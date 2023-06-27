@@ -15,7 +15,10 @@ export class SearchResultsComponent implements OnInit {
     this.route.queryParams.subscribe(params =>{
       this.query = params["query"]
 
-      this.search.searchByEmail(this.query);
+      this.search.searchByEmail(this.query).subscribe(result =>{
+        console.log(result);
+      })
+      
       
 
     }
