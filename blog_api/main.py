@@ -18,14 +18,15 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 with app.app_context():
     init_db()
 
+
 # allow cross domain with Angular FE
 @app.after_request
-
 def after_request(response):
-  response.headers.add('Access-Control-Allow-Origin', '*')
-  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  return response
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE")
+    return response
+
 
 # add api resource here
 

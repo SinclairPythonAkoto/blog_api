@@ -6,6 +6,7 @@ from blog_api.utils.error_messages.users import abort
 from blog_api.utils.tools import validate_user
 from blog_api.utils.tools.create_new_account import create_account
 
+
 class CreateNewAccount(Resource):
     def put(self):
         data = request.get_json()
@@ -23,21 +24,20 @@ class CreateNewAccount(Resource):
         # create a new user account
         if not find_user and not find_email:
             create_new_account = create_account(
-                session=session,
-                username=username,
-                email=email,
-                password=user_password
+                session=session, username=username, email=email, password=user_password
             )
-            # create response 
+            # create response
             response: Dict = {
                 "New account created": {
                     "id": create_new_account.id,
                     "username": create_new_account.username,
                     "email": create_new_account.email,
-                    "password": create_new_account.password
+                    "password": create_new_account.password,
                 },
                 "status": 201,
             }
             response = jsonify(response)
-            response.headers["Custom-Header"] = f"New user created: {create_new_account.username}"
+            response.headers[
+                "Custom-Header"
+            ] = f"New user created: {create_new_account.username}"
             return make_response(response, 201)

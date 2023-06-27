@@ -2,17 +2,20 @@ from sqlalchemy import Column, String, Integer, DateTime, Text, ForeignKey, Larg
 from sqlalchemy.orm import relationship
 from blog_api.extension import Base
 
+
 class Users(Base):
     __tablename__ = "users"
     id = Column("id", Integer, primary_key=True)
     username = Column("username", String(35), nullable=False)
     password = Column("password", String(50), nullable=False)
     email = Column("email", String(50), nullable=False)
+
+
 #     created = Column("created", DateTime, nullable=False)
 #     session_key = Column("session_key", String(50), nullable=False)
 #     blog = relationship("Blog", backref="blog")   # set relationship with blog db
 
-    
+
 # class Blog(Base):
 #     __table__name = "blog"
 #     id = Column("id", Integer, primary_key=True)

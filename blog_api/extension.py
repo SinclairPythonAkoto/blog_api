@@ -20,10 +20,10 @@ SessionLocal: sessionmaker = sessionmaker(
 Base: declarative_base = declarative_base()
 Base.query = db_session.query_property()
 
+
 # initialise db
 def init_db():
     """Create db models"""
     import blog_api.models
 
     Base.metadata.create_all(bind=engine)
-
