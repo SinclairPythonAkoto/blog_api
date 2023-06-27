@@ -1,0 +1,28 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+.example-full-width {
+width: 100%;
+}
+
+.header{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.searchBar{
+    position: absolute;
+    top: 10%; 
+    right: 0.2%;
+}
+
+.icon{
+    height: 50%;
+    width: 50%;
+}
