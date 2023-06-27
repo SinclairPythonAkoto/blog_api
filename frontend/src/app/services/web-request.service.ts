@@ -25,4 +25,13 @@ export class WebRequestService {
   put(uri: string, payload: Object){
     return this.http.put(`${this.ROOT_URL}/${uri}`, payload)
   }
+
+  get(uri: string, payload: Object | null){
+    if(payload){
+      return this.http.get(`${this.ROOT_URL}/${uri}`, payload)
+    } else {
+      return this.http.get(`${this.ROOT_URL}/${uri}`)
+    }
+   
+  }
 }
