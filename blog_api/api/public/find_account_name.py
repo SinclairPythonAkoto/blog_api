@@ -18,8 +18,8 @@ class FindAccountName(Resource):
                 "username": find_user.username,
                 "email": find_user.email,
             },
-            "status": 302,
+            "status": 200,
         }
         response: jsonify = jsonify(response)
         response.headers["Custom-Header"] = f"Account found: {find_user.username}"
-        return make_response(response, 302)
+        return make_response(response, 200)
