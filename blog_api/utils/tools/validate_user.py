@@ -1,8 +1,12 @@
+import functools
 from typing import Dict
 from blog_api import app
 from blog_api.extension import SessionLocal, db_session
 from blog_api.models.users import Users
 from flask_restful import abort
+from hmac import compare_digest
+from blog_api.utils.tools.user_token import generate_user_token
+from flask import request
 
 
 def get_username(session: db_session, username: str) -> Users:
@@ -63,3 +67,28 @@ def abort_if_email_already_exists_409(session: db_session, email: str):
             409,
             message="This email is already linked to another account, please choose a different email.",
         )
+
+def authenticate_user_key(session: db_session, user_key: str) -> bool:
+    """Checks if the user key exists in the db.
+    """
+    check_key: str = session.query(Users).filter_by(user_key=user_key).first()
+    if check_key and compare_digest(check_key, user_key):
+        # check_key.user_key = generate_user_token()
+        # session.commit()
+        return True
+    
+
+def user_key_required(func):
+    """Checks for a valid user key to gain access to private API routes."""
+    @functools.wraps(func)
+    def check_user_key(*args, **kwargs):
+        if request.json:
+            user_key: request = request.json.get("user_key")
+        else:
+            abort(400, message="Please provide a user API key.")
+        # check if API key is correct & valid
+        if request.method == "POST" and authenticate_user_key(user_key):
+            return func(*args, **kwargs)
+        else:
+            abort(403, message="The user API key is not valid.")
+    return check_user_key

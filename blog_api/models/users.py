@@ -9,13 +9,18 @@ class Users(Base):
     username = Column("username", String(35), nullable=False)
     password = Column("password", String(50), nullable=False)
     email = Column("email", String(50), nullable=False)
+    created = Column("created", DateTime, nullable=False)
+    user_key = Column("session_key", String(50), nullable=False)
+    blog = relationship("Blog", backref="blog")   # set relationship with blog db
 
-
-#     created = Column("created", DateTime, nullable=False)
-#     session_key = Column("session_key", String(50), nullable=False)
-#     blog = relationship("Blog", backref="blog")   # set relationship with blog db
-
-
+    def __init__(self, username, password, email, created, blog, user_key=None):
+        self.username = username
+        self.password = password
+        self.email = email
+        self.created = created
+        self.user_key = user_key
+        self.blog = blog
+        
 # class Blog(Base):
 #     __table__name = "blog"
 #     id = Column("id", Integer, primary_key=True)

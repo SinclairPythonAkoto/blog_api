@@ -5,9 +5,11 @@ from blog_api.extension import db_session
 from blog_api.utils.error_messages.users import abort
 from blog_api.utils.tools import validate_user
 from blog_api.utils.tools.create_new_account import create_account
+from flask_jwt import jwt_required, current_identity
 
 
 class CreateNewAccount(Resource):
+    @jwt_required()
     def put(self):
         data = request.get_json()
         username: data = data["user"]["user"]
@@ -33,11 +35,13 @@ class CreateNewAccount(Resource):
                     "username": create_new_account.username,
                     "email": create_new_account.email,
                     "password": create_new_account.password,
+                    "created": create_new_account.created,
+                    "user_key": create_new_account.user_key
                 },
                 "status": 201,
             }
             response = jsonify(response)
             response.headers[
                 "Custom-Header"
-            ] = f"New user created: {create_new_account.username}"
+            ] = f"New user created. {create_new_account.username}: {create_new_account.user_key}"
             return make_response(response, 201)
