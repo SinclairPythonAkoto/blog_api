@@ -8,6 +8,18 @@ from blog_api.utils.error_messages.users import abort
 
 
 class FindAccountName(Resource):
-    def get(self, account):
-        
-        pass
+    def get(self, user: str):
+        session: db_session = db_session
+        abort.abort_if_username_not_found_404(session, user)
+        find_user: validate_user = validate_user.get_username(session, user)
+        response: Dict = {
+            "Account found": {
+                "id": find_user.id,
+                "username": find_user.username,
+                "email": find_user.email,
+            },
+            "status": 302,
+        }
+        response: jsonify = jsonify(response)
+        response.headers["Custom-Header"] = f"Account found: {find_user.username}"
+        return make_response(response, 302)

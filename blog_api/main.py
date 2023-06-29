@@ -6,6 +6,7 @@ from blog_api.extension import init_db, SessionLocal
 from blog_api.api.public.helloworld import HelloWorld
 from blog_api.api.public.create_account import CreateNewAccount
 from blog_api.api.public.find_account_email import GetAccountByEmail
+from blog_api.api.public.find_account_name import FindAccountName
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -33,6 +34,7 @@ def after_request(response):
 api.add_resource(HelloWorld, "/helloworld")
 api.add_resource(CreateNewAccount, "/new/user")  # needs updating
 api.add_resource(GetAccountByEmail, "/new/<string:user_email>")  # needs updating
+api.add_resource(FindAccountName, "/find/<string:user>")
 
 
 if __name__ == "__main__":
